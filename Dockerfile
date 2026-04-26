@@ -1,7 +1,7 @@
 # ===========================
 # Stage 1: Builder (Alpine)
 # ===========================
-FROM python:3.9.25-alpine3.21 AS builder
+FROM python:3.11-alpine AS builder
 WORKDIR /opt/server
 # Build deps for uwsgi & friends
 RUN apk add --no-cache \
@@ -17,7 +17,7 @@ RUN pip3 install --prefix=/install -r requirements.txt
 # ===========================
 # Stage 2: Runtime (Alpine)
 # ===========================
-FROM python:3.9.25-alpine3.21
+FROM python:3.11-alpine
 EXPOSE 8080
 WORKDIR /opt/server
 # Runtime deps only

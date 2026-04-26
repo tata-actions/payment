@@ -1,0 +1,26 @@
+name: feature-pipeline-catalogue
+
+on: [push]
+permissions:
+  contents: read
+  statuses: write
+  security-events: read
+
+jobs:
+  feature-pipeline:
+    if: github.ref != 'refs/heads/main'
+    uses: tata-actions/workflows/.github/workflows/feature-python-pipeline.yaml@main
+    with:
+      project: roboshop
+      component: payment
+      environment: dev
+    secrets: inherit  
+
+  dev-pipeline:
+    if: github.ref == 'refs/heads/main'
+    uses: tata-actions/workflows/.github/workflows/dev-python-pipeline.yaml@main
+    with:
+      project: roboshop
+      component: payment
+      environment: dev
+    secrets: inherit   
